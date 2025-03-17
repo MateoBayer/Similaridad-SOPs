@@ -1,0 +1,41 @@
+.table-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: rgb(244, 255, 232);
+  }
+  
+  .table-controls {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    padding: auto;
+    gap: 30px;
+  }
+  
+  .table-controls input {
+    margin-left: 10px;
+    padding: 5px;
+    width: 80px;
+  }
+  
+  .similarity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .similarity-table th,
+  .similarity-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .similarity-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+  
+  .similarity-table tr:hover {
+    background-color: #f9f9f9;
+  }
