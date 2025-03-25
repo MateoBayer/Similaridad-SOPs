@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import { parseCSV } from '../../utils/dataUtils';
 import './Graph.css';
 
-function Graph( {file}) {
+function Graph( {file, onSopSelect}) {
   const [graphData, setGraphData] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [selectedLabels, setSelectedLabels] = useState(null);
@@ -42,6 +42,7 @@ function Graph( {file}) {
 
   const handlePointClick = (point) => {
     setSelectedPoint(point);
+    onSopSelect(point.document);
     console.log('Selected point:', point);
   };
 

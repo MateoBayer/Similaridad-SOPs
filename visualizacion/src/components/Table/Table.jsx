@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Table.css';
 
-const Table = ({file}) => {
+const Table = ({file, selectedSop}) => {
   const [similarityData, setSimilarityData] = useState([]);
   const [uniqueDocuments, setUniqueDocuments] = useState([]);
   const [doc1, setDoc1] = useState('');
@@ -35,6 +35,12 @@ const Table = ({file}) => {
         setUniqueDocuments(Array.from(docs).sort());
       });
   }, []);
+
+  useEffect(() => {
+    if (selectedSop) {
+      setNameSop(selectedSop);
+    }
+  }, [selectedSop]); // Se ejecuta cada vez que selectedSop cambie
 
   const findSimilarity = (doc1, doc2) => {
     const match = similarityData.find(
