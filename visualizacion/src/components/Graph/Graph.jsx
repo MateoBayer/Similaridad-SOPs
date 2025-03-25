@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import { parseCSV } from '../../utils/dataUtils';
 import './Graph.css';
 
-function Graph( {file, onSopSelect}) {
+function Graph( {file, onSopSelect, highlightedSops}) {
   const [graphData, setGraphData] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [selectedLabels, setSelectedLabels] = useState(null);
@@ -56,9 +56,24 @@ function Graph( {file, onSopSelect}) {
     });
   };
 
-  const getFilteredData = () => {
+  // First filter by labels
+  const getFilteredByLabels = () => {
     if (!graphData || !selectedLabels) return null;
     return graphData.filter(d => selectedLabels.includes(d.label));
+  };
+
+  // Then filter by highlighted SOPs (if any)
+  const getFilteredData = () => {
+    const labelFiltered = getFilteredByLabels();
+    if (!labelFiltered) return null;
+    
+    // If we have highlighted SOPs, filter to show only those
+    if (highlightedSops && highlightedSops.length > 0) {
+      return labelFiltered.filter(d => highlightedSops.includes(d.document));
+    }
+    
+    // Otherwise show all label-filtered data
+    return labelFiltered;
   };
 
   const filteredData = getFilteredData();

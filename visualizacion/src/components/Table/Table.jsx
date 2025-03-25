@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Table.css';
 
-const Table = ({file, selectedSop}) => {
+const Table = ({file, selectedSop, onHighlightSop, highlightedSops}) => {
   const [similarityData, setSimilarityData] = useState([]);
   const [uniqueDocuments, setUniqueDocuments] = useState([]);
   const [doc1, setDoc1] = useState('');
@@ -110,8 +110,14 @@ const Table = ({file, selectedSop}) => {
             .slice(0, amount)
             .map((item, index) => (
               <tr key={index}>
-                <td>{item.doc1}</td>
-                <td>{item.doc2}</td>
+                <td
+                  onClick={() => onHighlightSop(item.doc1)} // Marcar como resaltado, para que aparezca en el grafico
+                  className={highlightedSops.includes(item.doc1) ? "highlighted" : ""}
+                >{item.doc1}</td>
+                <td
+                  onClick={() => onHighlightSop(item.doc2)}
+                  className={highlightedSops.includes(item.doc2) ? "highlighted" : ""}
+                >{item.doc2}</td>
                 <td>{(item.similarity * 100).toFixed(2)}%</td>
               </tr>
             ))}

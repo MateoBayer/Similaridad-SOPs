@@ -39,3 +39,9 @@
   .similarity-table tr:hover {
     background-color: #f9f9f9;
   }
+
+  .highlighted {
+    font-weight: bold;
+    color: #0066cc;
+    background-color: #f0f8ff;
+  }
