@@ -9,6 +9,14 @@ function Graph( {file}) {
   const [selectedLabels, setSelectedLabels] = useState(null);
   const [nameSop, setNameSop] = useState("");
   const [nameAuthor, setNameAuthor] = useState("")
+  const [currentLayout, setCurrentLayout] = useState({
+    title: 't-SNE Plot',
+    xaxis: { title: 'Dimension 1' },
+    yaxis: { title: 'Dimension 2' },
+    hovermode: 'closest',
+    width: 800,
+    height: 600,
+  });
 
   // Define distinct colors for each label
   const labelColors = {
@@ -53,6 +61,13 @@ function Graph( {file}) {
   };
 
   const filteredData = getFilteredData();
+
+  const handleRelayout = (newLayout) => {
+    setCurrentLayout(prevLayout => ({
+      ...prevLayout,
+      ...newLayout
+    }));
+  };
 
   return (
     <div className="container">
@@ -125,19 +140,13 @@ function Graph( {file}) {
                 }),
               }
             ]}
-            layout={{
-              title: 't-SNE Plot',
-              xaxis: { title: 'Dimension 1' },
-              yaxis: { title: 'Dimension 2' },
-              hovermode: 'closest',
-              width: 800,
-              height: 600,
-            }}
+            layout={currentLayout}
             onClick={(event) => {
               if (event.points && event.points[0]) {
                 handlePointClick(filteredData[event.points[0].pointIndex]);
               }
             }}
+            onRelayout={handleRelayout}
           />
         )}
         {selectedPoint && (

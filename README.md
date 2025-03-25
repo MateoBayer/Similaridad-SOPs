@@ -4,6 +4,13 @@ Este proyecto muestra el analisis de similaridad entre los distintos SOPs (Stand
 
 Se tiene la carpeta Analisis, la cual se compone de todo el trabajo realizado para obtener la similaridad de distintos documentos. Para esto se utilizo el modelo Doc2Vec, un modelo de Machine Learning el cual representa documentos en forma de vectores numericos distribuidos, sin importar el tamaño o contenido del documento. Esto nos permite procesar los datos de forma precisa y tambien nos permite representarles para poder mostrar su similitud y correlacion con otros documentos.
 
+## Instalacion y Ejecucion
+
+Antes de poder correr el programa se necesita tener instalado en la computadora
+- node.js y npm (https://nodejs.org/en/download)
+
+Se va a tener que activar el permiso de ejecucion de scripts. Para esto, siendo usuario administrador ejecutar desde una terminal el comando: "Set-ExecutionPolicy RemoteSigned"
+
 La carpeta visualizacion muestra toda la visualizacion de datos para ilustrar lo mejor posible la similitud entre distintos documentos. Se ejecuta de la siguiente manera:
 Posicionarse en la carpeta "visualizacion" desde la terminal (cd visualizacion)
 La primera vez se debe ejecutar:
