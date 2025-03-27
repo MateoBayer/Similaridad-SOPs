@@ -1,7 +1,15 @@
+:root {
+  --app: #CCD5AE;
+  --doc2vec: #E9EDC9;
+  --graph: #FEFAE0;
+  --table: #FAEDCD;
+  --similarity: #D4A373;
+}
+
 .table-container {
     margin: 20px;
     padding: 20px;
-    background-color: rgb(244, 255, 232);
+    background-color: var(--table);
   }
   
   .table-controls {

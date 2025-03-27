@@ -1,8 +1,16 @@
+:root {
+  --app: #CCD5AE;
+  --doc2vec: #E9EDC9;
+  --graph: #FEFAE0;
+  --table: #FAEDCD;
+  --similarity: #f2cca2;
+}
+
 .document-comparison {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     padding: 20px;
-    background: #fce1e1;
+    background: #f2cca2;
     border-radius: 8px;
     margin: 20px 0;
   }

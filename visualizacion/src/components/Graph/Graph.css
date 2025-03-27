@@ -1,3 +1,11 @@
+:root {
+  --app: #CCD5AE;
+  --doc2vec: #E9EDC9;
+  --graph: #FEFAE0;
+  --table: #FAEDCD;
+  --similarity: #D4A373;
+}
+
 .app {
     padding: 20px;
     max-width: 1200px;
@@ -8,7 +16,7 @@
     display: flex;
     direction: row;
     gap: 20px;
-    background-color: rgb(246, 236, 224);
+    background-color: var(--graph);
   }
   
   .filters {
