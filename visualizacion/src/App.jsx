@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="app">
       <header>
-        <h1>Analisis de documentos</h1>
+        <h1>Analisis de documentos SOP</h1>
       </header>
       <section className='doc-2-vec'>
         <h2>Doc2Vec</h2>
