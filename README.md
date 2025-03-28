@@ -25,6 +25,6 @@ La visualizacion muestra 3 cosas:
 2) Una tabla que te muestra de mayor a menor la similaridad entre los distintos SOPs.
 3) Un espacio donde se pueden seleccionar 2 documentos para ver el valor exacto de similaridad.
 
-En el grafico se pueden filtrar los SOPs por tipo (A, C, G, P,,S), por nombre del SOP (Ej: G0031) y por nombre de autor. Tambien se puede hacer zoom a disntintos sectores del grafico.
+En el grafico se pueden filtrar los SOPs por tipo (A, C, G, P, S), por nombre del SOP (Ej: G0031) y por nombre de autor. Tambien se puede hacer zoom a disntintos sectores del grafico.
 
 En la tabla de similaridad se pueden definir la cantidad de columnas que se desea ver, se puede buscar el nombre de un SOP par ver la similitud que tiene con los otros SOPs, y se puede agregar una minimo porcentaje de similitud que tiene que haber para que se muestre en la table. Tambien la tabla es interactiva con el grafico. Es decir, si yo presiono en un nombre de SOP que se muestre en la tabla, me lo va a mostrar en el grafico. Todos los que presione se van a visualizar en el grafico.
