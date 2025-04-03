@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import { parseCSV } from '../../utils/dataUtils';
 import './Graph.css';
 
-function Graph( {file, onSopSelect, highlightedSops}) {
+function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
   const [graphData, setGraphData] = useState(null);
   const [selectedPoint, setSelectedPoint] = useState(null);
   const [selectedLabels, setSelectedLabels] = useState(null);
@@ -85,6 +85,14 @@ function Graph( {file, onSopSelect, highlightedSops}) {
     }));
   };
 
+  const obtainMatchedSops = (name) => {
+    const matchingSops = filteredData.filter(d => {
+      const filteredNameAuthors = d.autor.some(aut => aut.toLowerCase().includes(name.toLowerCase()));
+      return filteredNameAuthors;
+    })
+    onFilteredAuthorSops(matchingSops);
+  }
+
   return (
     <div className="container">
       <div className='filters'>
@@ -104,27 +112,37 @@ function Graph( {file, onSopSelect, highlightedSops}) {
             </div>
           ))}
         </div>
-        <div className="selector">
+        <div className="input-filter">
           <label>Documento a buscar</label>
           <input
             type="text"
             value={nameSop}
-            onChange={(e) => setNameSop(e.target.value)}
+            onChange={(e) => {
+              setNameSop(e.target.value);
+              //if ( nameSop.length > 2) {
+              //  obtainMatchedSops();
+              //}
+            }}
             placeholder="Escribe nombre de un SOP..."
           />
         </div>
-        <div className='filter-authors'>
+        <div className="input-filter">
           <label>Filtrado por autores</label>
-            <input
-              type='text'
-              value={nameAuthor}
-              onChange={(e) => setNameAuthor(e.target.value)}
-              placeholder="Filtar sops por Autor"
-            />
+          <input
+            type='text'
+            value={nameAuthor}
+            onChange={(e) => {
+              setNameAuthor(e.target.value);
+              // Me falta limpiar la lista cuando se limpia este valor
+              obtainMatchedSops(e.target.value);
+            }}
+            placeholder="Filtar sops por Autor"
+          />
         </div>
       </div>
       <main className='graph'>
         {filteredData && (
+          
           <Plot
             data={[
               {
@@ -137,18 +155,18 @@ function Graph( {file, onSopSelect, highlightedSops}) {
                   color: filteredData.map(d => labelColors[d.label]),
                   line: { width: 1, color: 'black' },                  
                   size: nameSop.length > 2 || nameAuthor.length > 2 ? filteredData.map(d =>{
-                    const filteredNameSops = d.document.startsWith(nameSop)
-                    const filteredNameAuthors = d.autor.some(aut => aut.includes(nameAuthor))
-                    return (filteredNameSops && filteredNameAuthors) ? 15 : 10
+                    const filteredNameSops = d.document.toLowerCase().startsWith(nameSop.toLowerCase())
+                    const filteredNameAuthors = d.autor.some(aut => aut.toLowerCase().includes(nameAuthor.toLowerCase()))
+                    const filteredSops = filteredNameSops && filteredNameAuthors;
+                    return filteredSops ? 15 : 10;
                   }
                   ) : 10,
 
                   opacity: nameSop.length > 2 || nameAuthor.length > 2 ? filteredData.map(d => {
-                    const opacityNameSop = d.document.startsWith(nameSop)
-                    const opacityNameAuthor = d.autor.some(aut => aut.includes(nameAuthor))
+                    const opacityNameSop = d.document.toLowerCase().startsWith(nameSop.toLowerCase())
+                    const opacityNameAuthor = d.autor.some(aut => aut.toLowerCase().includes(nameAuthor.toLowerCase()))
                     return (opacityNameSop && opacityNameAuthor) ? 0.8 : 0.2
                   }) : 0.8,
-                  // symbol: nameAuthor.length > 2 ? (filteredData.map(d => d.autor.startsWith(nameAuthor) ? "diamond" : "cirlce")) : "cirlce",
                 },
                 hoverinfo: 'text',
                 text: filteredData.map(d => {

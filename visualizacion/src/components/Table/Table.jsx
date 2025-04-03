@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './Table.css';
 
-const Table = ({file, selectedSop, onHighlightSop, highlightedSops}) => {
+const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuthorSops}) => {
   const [similarityData, setSimilarityData] = useState([]);
   const [uniqueDocuments, setUniqueDocuments] = useState([]);
   const [doc1, setDoc1] = useState('');
@@ -105,8 +105,15 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops}) => {
         <tbody>
           {similarityData
             .filter(
-              item => (item.similarity * 100) >= minSimilarity && (item.doc1.startsWith(nameSop) || item.doc2.startsWith(nameSop))
-            )
+              item => {
+                const firstFilter = (item.similarity * 100) >= minSimilarity && 
+                  (item.doc1.startsWith(nameSop) || item.doc2.startsWith(nameSop));
+                
+                  const meetsAuthorFilter = filteredAuthorSops.size > 2 ? 
+                   filteredAuthorSops.has(item.doc1) || filteredAuthorSops.has(item.doc2) :
+                   true
+                return firstFilter && meetsAuthorFilter;
+              })
             .slice(0, amount)
             .map((item, index) => (
               <tr key={index}>

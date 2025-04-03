@@ -9,6 +9,7 @@ function App() {
 
   const [selectedSop, setSelectedSop] = useState("");
   const [highlightedSops, setHighlightedSops] = useState([])
+  const [filteredAuthorSops, setFilteredAuthorSops] = useState(new Set())
   // Handler function to update the state
   const handleSopSelection = (sopName) => {
     setSelectedSop(sopName);
@@ -24,6 +25,15 @@ function App() {
     });
   };
 
+  // Add the name of the sops to filter them in the Table
+  const handleFilteredAuthorSelection = (namesFilteredAuthorSops) => {
+    const nameSops = new Set()
+    namesFilteredAuthorSops.forEach(sop => {
+      nameSops.add(sop.document)
+    });
+    setFilteredAuthorSops(nameSops);
+  }
+
   return (
     <div className="app">
       <header>
@@ -31,16 +41,18 @@ function App() {
       </header>
       <section className='doc-2-vec'>
         <h2>Doc2Vec</h2>
-        <Graph 
+        <Graph
           file={"Doc2Vec_con_autores_separador_corregido.csv"} 
           onSopSelect={handleSopSelection}
           highlightedSops={highlightedSops}
+          onFilteredAuthorSops={handleFilteredAuthorSelection}
         />
         <Table
           file={'/simil_doc_doc2vec_cosine_sorted.csv'} 
           selectedSop={selectedSop}  
           onHighlightSop={handleHighlightedSop}
           highlightedSops={highlightedSops} // Para resaltar los que ya estan resaltados
+          filteredAuthorSops={filteredAuthorSops}
         />
         <DocumentComparison file={"/simil_doc_doc2vec_cosine.csv"} />
       </section>

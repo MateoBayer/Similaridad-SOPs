@@ -20,7 +20,6 @@ export const parseCSV = (csvText) => {
             parsedValues.pop()
             parsedValues.push(lastElement)
             entry[header] = parsedValues
-            console.log(entry[header])
             
             //entry[header] = values[index].trim().replace(/"/g, '');
           } else {
