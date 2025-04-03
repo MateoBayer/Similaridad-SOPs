@@ -94,6 +94,12 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
     onFilteredAuthorSops(matchingSops);
   }
 
+  const handleResetFilters = () => {
+    setNameSop("");
+    setNameAuthor("");
+    setTitleName("");
+  };
+
   const shouldHighlight = nameSop.length > 2 || nameAuthor.length > 2 || titleName.length > 2;
 
   const pointFilters = useMemo(() => {
@@ -169,6 +175,14 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
             }}
             placeholder="Escribe el titulo de un SOP..."
           />
+        </div>
+        <div className="button-container">
+          <button
+          onClick={handleResetFilters}
+          className="reset-button"
+          >
+            Limpiar filtros  
+          </button>
         </div>
       </div>
       <main className='graph'>

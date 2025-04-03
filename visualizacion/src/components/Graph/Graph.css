@@ -76,3 +76,22 @@
     margin-right: 10px;
     width: calc(100% - 20px);
   }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .reset-button {
+    background-color: rgb(178, 73, 73);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    padding: 8px 16px;
+    margin-top: 20px;
+  }
