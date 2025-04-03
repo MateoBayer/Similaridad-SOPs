@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Plot from 'react-plotly.js';
 import { parseCSV } from '../../utils/dataUtils';
 import './Graph.css';
@@ -9,6 +9,7 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
   const [selectedLabels, setSelectedLabels] = useState(null);
   const [nameSop, setNameSop] = useState("");
   const [nameAuthor, setNameAuthor] = useState("")
+  const [titleName, setTitleName] = useState("")
   const [currentLayout, setCurrentLayout] = useState({
     title: 't-SNE Plot',
     xaxis: { title: 'Dimension 1' },
@@ -93,6 +94,25 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
     onFilteredAuthorSops(matchingSops);
   }
 
+  const shouldHighlight = nameSop.length > 2 || nameAuthor.length > 2 || titleName.length > 2;
+
+  const pointFilters = useMemo(() => {
+    if (!filteredData) return [];
+    
+    return filteredData.map(d => {
+      const matchesName = d.document.toLowerCase().startsWith(nameSop.toLowerCase());
+      const matchesAuthor = d.autor.some(aut => aut.toLowerCase().includes(nameAuthor.toLowerCase()));
+      const matchesTitle = d.title.toLowerCase().includes(titleName.toLowerCase());
+      
+      const isHighlighted = matchesName && matchesAuthor && matchesTitle;
+      
+      return {
+        isHighlighted,
+        color: labelColors[d.label]
+      };
+    });
+  }, [filteredData, nameSop, nameAuthor, titleName, labelColors]);
+
   return (
     <div className="container">
       <div className='filters'>
@@ -136,7 +156,18 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
               // Me falta limpiar la lista cuando se limpia este valor
               obtainMatchedSops(e.target.value);
             }}
-            placeholder="Filtar sops por Autor"
+            placeholder="Escribe el nombre de un autor..."
+          />
+        </div>
+        <div className="input-filter">
+          <label>Filtrado por titulo</label>
+          <input
+            type='text'
+            value={titleName}
+            onChange={(e) => {
+              setTitleName(e.target.value);
+            }}
+            placeholder="Escribe el titulo de un SOP..."
           />
         </div>
       </div>
@@ -151,22 +182,16 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
                 x: filteredData.map(d => d['Dimension 1']),
                 y: filteredData.map(d => d['Dimension 2']),
                 text: filteredData.map(d => d.document),
+                
                 marker: {
-                  color: filteredData.map(d => labelColors[d.label]),
-                  line: { width: 1, color: 'black' },                  
-                  size: nameSop.length > 2 || nameAuthor.length > 2 ? filteredData.map(d =>{
-                    const filteredNameSops = d.document.toLowerCase().startsWith(nameSop.toLowerCase())
-                    const filteredNameAuthors = d.autor.some(aut => aut.toLowerCase().includes(nameAuthor.toLowerCase()))
-                    const filteredSops = filteredNameSops && filteredNameAuthors;
-                    return filteredSops ? 15 : 10;
-                  }
-                  ) : 10,
-
-                  opacity: nameSop.length > 2 || nameAuthor.length > 2 ? filteredData.map(d => {
-                    const opacityNameSop = d.document.toLowerCase().startsWith(nameSop.toLowerCase())
-                    const opacityNameAuthor = d.autor.some(aut => aut.toLowerCase().includes(nameAuthor.toLowerCase()))
-                    return (opacityNameSop && opacityNameAuthor) ? 0.8 : 0.2
-                  }) : 0.8,
+                  color: pointFilters.map(p => p.color),
+                  line: { width: 1, color: 'black' },
+                  size: shouldHighlight 
+                    ? pointFilters.map(p => p.isHighlighted ? 15 : 10)
+                    : 10,
+                  opacity: shouldHighlight
+                    ? pointFilters.map(p => p.isHighlighted ? 0.8 : 0.2)
+                    : 0.8,
                 },
                 hoverinfo: 'text',
                 text: filteredData.map(d => {
