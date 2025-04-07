@@ -107,7 +107,7 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
             .filter(
               item => {
                 const firstFilter = (item.similarity * 100) >= minSimilarity && 
-                  (item.doc1.startsWith(nameSop) || item.doc2.startsWith(nameSop));
+                  (item.doc1.toLowerCase().startsWith(nameSop.toLowerCase()) || item.doc2.toLowerCase().startsWith(nameSop.toLowerCase()));
                 
                   const meetsAuthorFilter = filteredAuthorSops.size > 2 ? 
                    filteredAuthorSops.has(item.doc1) || filteredAuthorSops.has(item.doc2) :

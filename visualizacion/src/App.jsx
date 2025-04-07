@@ -42,13 +42,13 @@ function App() {
       <section className='doc-2-vec'>
         <h2>Doc2Vec</h2>
         <Graph
-          file={"Doc2Vec_con_autores_separador_corregido.csv"} 
+          file={"graph_data.csv"} 
           onSopSelect={handleSopSelection}
           highlightedSops={highlightedSops}
           onFilteredAuthorSops={handleFilteredAuthorSelection}
         />
         <Table
-          file={'/simil_doc_doc2vec_cosine_sorted.csv'} 
+          file={'table_data.csv'} 
           selectedSop={selectedSop}  
           onHighlightSop={handleHighlightedSop}
           highlightedSops={highlightedSops} // Para resaltar los que ya estan resaltados

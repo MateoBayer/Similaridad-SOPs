@@ -11,6 +11,8 @@ Antes de poder correr el programa se necesita tener instalado en la computadora
 
 Se va a tener que activar el permiso de ejecucion de scripts. Para esto, siendo usuario administrador ejecutar desde una terminal el comando: "Set-ExecutionPolicy RemoteSigned"
 
+Revisar tener en la carpeta visualizacion/public los 2 archivos .csv necesarios para visualizar los datos. (graph_data.csv, table_data.csv, comparison_data.csv)
+
 La carpeta visualizacion muestra toda la visualizacion de datos para ilustrar lo mejor posible la similitud entre distintos documentos. Se ejecuta de la siguiente manera:
 Posicionarse en la carpeta "visualizacion" desde la terminal (cd visualizacion)
 La primera vez se debe ejecutar:
