@@ -224,7 +224,16 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
         )}
         {selectedPoint && (
           <div className="selected-point">
-            <h3>Documento selccionado:</h3>
+            <div className="selected-point-header">
+              <h3>Documento seleccionado:</h3>
+              <button 
+                className="close-button"
+                onClick={() => setSelectedPoint(null)}
+                aria-label="Cerrar"
+              >
+                Cerrar
+              </button>
+            </div>
             <p>Documento: {selectedPoint.document}</p>
             <p>Tipo: {selectedPoint.label}</p>
             <p>Titulo: {selectedPoint.title}</p>
