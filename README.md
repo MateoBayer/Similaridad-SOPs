@@ -11,7 +11,7 @@ Antes de poder correr el programa se necesita tener instalado en la computadora
 
 Se va a tener que activar el permiso de ejecucion de scripts. Para esto, siendo usuario administrador ejecutar desde una terminal el comando: "Set-ExecutionPolicy RemoteSigned"
 
-Revisar tener en la carpeta visualizacion/public los 2 archivos .csv necesarios para visualizar los datos. (graph_data.csv, table_data.csv, comparison_data.csv)
+Revisar tener en la carpeta visualizacion/public los 3 archivos .csv necesarios para visualizar los datos. (graph_data.csv, table_data.csv, comparison_data.csv)
 
 La carpeta visualizacion muestra toda la visualizacion de datos para ilustrar lo mejor posible la similitud entre distintos documentos. Se ejecuta de la siguiente manera:
 Posicionarse en la carpeta "visualizacion" desde la terminal (cd visualizacion)
@@ -29,4 +29,4 @@ La visualizacion muestra 3 cosas:
 
 En el grafico se pueden filtrar los SOPs por tipo (A, C, G, P, S), por nombre del SOP (Ej: G0031), por nombre de autor y por titulo de SOP. Tambien se puede hacer zoom a disntintos sectores del grafico.
 
-En la tabla de similaridad se pueden definir la cantidad de columnas que se desea ver, se puede buscar el nombre de un SOP par ver la similitud que tiene con los otros SOPs, y se puede agregar una minimo porcentaje de similitud que tiene que haber para que se muestre en la table. Tambien la tabla es interactiva con el grafico. Es decir, si se presiona en un nombre de SOP que se muestre en la tabla, me lo va a mostrar en el grafico. Todos los que presione se van a visualizar en el grafico. De la misma manera, si presiono en un punto en el grafico, se va a ver reflejado en la tabla. Tambien si se buscan SOPs por nombre de autor en el grafico, se van a ver reflejados esos SOPs en la tabla.
+En la tabla de similaridad se pueden definir la cantidad de columnas que se desea ver, se puede buscar el nombre de un SOP para ver la similitud que tiene con los otros SOPs, y se puede agregar un minimo porcentaje de similitud que tiene que haber para que se muestre en la table. Tambien la tabla es interactiva con el grafico. Es decir, si se presiona en un nombre de SOP que se muestre en la tabla, me lo va a mostrar en el grafico. Todos los que presione se van a visualizar en el grafico. De la misma manera, si presiono en un punto en el grafico, se va a ver reflejado en la tabla. Tambien si se buscan SOPs por nombre de autor en el grafico, se van a ver reflejados esos SOPs en la tabla.
