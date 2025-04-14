@@ -54,7 +54,7 @@ function App() {
           highlightedSops={highlightedSops} // Para resaltar los que ya estan resaltados
           filteredAuthorSops={filteredAuthorSops}
         />
-        <DocumentComparison file={"/simil_doc_doc2vec_cosine.csv"} />
+        <DocumentComparison file={"comparison_data.csv"} />
       </section>
     </div>
   );
