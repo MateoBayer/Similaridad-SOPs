@@ -38,14 +38,6 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
     }
   }, [selectedSop]); // Se ejecuta cada vez que selectedSop cambie
 
-  const findSimilarity = (doc1, doc2) => {
-    const match = similarityData.find(
-      item => (item.doc1 === doc1 && item.doc2 === doc2) || 
-              (item.doc1 === doc2 && item.doc2 === doc1)
-    );
-    return match ? match.similarity : null;
-  };
-
   const handleResetFilters = () => {
     setAmount(10);
     setNameSop("");
