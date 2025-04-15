@@ -3,10 +3,6 @@ import './Table.css';
 
 const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuthorSops}) => {
   const [similarityData, setSimilarityData] = useState([]);
-  const [uniqueDocuments, setUniqueDocuments] = useState([]);
-  const [doc1, setDoc1] = useState('');
-  const [doc2, setDoc2] = useState('');
-  const [similarity, setSimilarity] = useState(null);
   const [amount, setAmount] = useState(10);
   const [nameSop, setNameSop] = useState("");
   const [minSimilarity, setMinSimilarity] = useState(0)
@@ -50,11 +46,10 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
     return match ? match.similarity : null;
   };
 
-  const handleCompare = () => {
-    if (doc1 && doc2) {
-      const similarityValue = findSimilarity(doc1, doc2);
-      setSimilarity(similarityValue);
-    }
+  const handleResetFilters = () => {
+    setAmount(10);
+    setNameSop("");
+    setMinSimilarity(0);
   };
 
   return (
@@ -92,6 +87,12 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
             value={minSimilarity}
             onChange={(e) => setMinSimilarity(parseInt(e.target.value))}
           />
+        </div>
+        <div>
+          <button
+            className='reset-filters'
+            onClick={handleResetFilters}
+          >Restaurar Filtros</button>
         </div>
       </div>
       <table className='similarity-table'>
