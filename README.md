@@ -2,18 +2,23 @@
 
 Este proyecto muestra el analisis de similaridad entre los distintos SOPs (Standard Operating Procedures) de las plantas 1 y 2 de Pilar, Buenos Aires
 
-Se tiene la carpeta Analisis, la cual se compone de todo el trabajo realizado para obtener la similaridad de distintos documentos. Para esto se utilizo el modelo Doc2Vec, un modelo de Machine Learning el cual representa documentos en forma de vectores numericos distribuidos, sin importar el tamaño o contenido del documento. Esto nos permite procesar los datos de forma precisa y tambien nos permite representarles para poder mostrar su similitud y correlacion con otros documentos.
+Se tiene la carpeta Analisis, la cual se compone de todo el trabajo realizado para obtener la similaridad de distintos documentos. Para esto se utilizo el modelo Doc2Vec, un modelo de Machine Learning el cual representa documentos en forma de vectores numericos distribuidos, sin importar el tamaño o contenido del documento. Esto nos permite procesar los datos de forma precisa y tambien nos permite representarlos para poder mostrar su similitud y correlacion con otros documentos.
+
+Por otro lado se encuentra la carpeta visualizacion la cual contiene todos los archivos y datos para ilustrar lo mejor posible la similitud entre los distintos documentos.
 
 ## Instalacion y Ejecucion
 
 Antes de poder correr el programa se necesita tener instalado en la computadora
 - node.js y npm (https://nodejs.org/en/download)
+- Visual Studio Code (https://code.visualstudio.com/Download) (u otro IDE)
+- Git (https://git-scm.com/downloads)
+- Una cuenta en github (https://github.com/)
 
 Se va a tener que activar el permiso de ejecucion de scripts. Para esto, siendo usuario administrador ejecutar desde una terminal el comando: "Set-ExecutionPolicy RemoteSigned"
 
 Revisar tener en la carpeta visualizacion/public los 3 archivos .csv necesarios para visualizar los datos. (graph_data.csv, table_data.csv, comparison_data.csv)
 
-La carpeta visualizacion muestra toda la visualizacion de datos para ilustrar lo mejor posible la similitud entre distintos documentos. Se ejecuta de la siguiente manera:
+Para ejecutar el programa hay que hacerlo de la siguiente manera:
 Posicionarse en la carpeta "visualizacion" desde la terminal (cd visualizacion)
 La primera vez se debe ejecutar:
 1) npm install
@@ -21,6 +26,13 @@ La primera vez se debe ejecutar:
 
 Luego siempre ejecutar la siguiente linea de comandos, siempre estando posicionado en la carpeta visualizacion:
 - npm run dev
+
+Finalmente buscar en internet la url:
+- http://localhost:5173/
+
+La visualizacion va a estar funcionando en esa direccion.
+
+## Explicacion de funcionamiento
 
 La visualizacion muestra 3 cosas:
 1) Grafico de 2 dimensiones con todos los SOPs, con distintos colores dependiendo su tipo (A, C, G, P, S). En este grafico se puede filtrar por nombre de SOP o por autor. Al presionar un SOP, debajo del grafico aparecen las caracteristicas del mismo. (Nombre de SOP, Tipo, Titulo, Autor/es).
