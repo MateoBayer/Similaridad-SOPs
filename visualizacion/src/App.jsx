@@ -31,6 +31,7 @@ function App() {
     namesFilteredAuthorSops.forEach(sop => {
       nameSops.add(sop.document)
     });
+    console.log(nameSops.size)
     setFilteredAuthorSops(nameSops);
   }
 

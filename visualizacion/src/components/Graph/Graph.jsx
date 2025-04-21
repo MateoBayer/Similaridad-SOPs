@@ -97,6 +97,7 @@ function Graph( {file, onSopSelect, highlightedSops, onFilteredAuthorSops}) {
   const handleResetFilters = () => {
     setNameSop("");
     setNameAuthor("");
+    obtainMatchedSops("");
     setTitleName("");
   };
 

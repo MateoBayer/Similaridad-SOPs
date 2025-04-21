@@ -123,7 +123,6 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
             ))}
         </tbody>
       </table>
-      
     </div>
   );
 };
