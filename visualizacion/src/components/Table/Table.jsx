@@ -23,12 +23,13 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
         setSimilarityData(data);
 
         // Get unique documents
-        const docs = new Set();
+        /*const docs = new Set();
         data.forEach(item => {
           docs.add(item.doc1);
           docs.add(item.doc2);
         });
         setUniqueDocuments(Array.from(docs).sort());
+        */
       });
   }, []);
 
@@ -42,6 +43,64 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
     setAmount(10);
     setNameSop("");
     setMinSimilarity(0);
+  };
+
+  const convertToCsv = (array) => {
+    const headersInCsv = ["Documento 1", "Documento 2", "Similaridad"]
+    const headers = Object.keys(array[0])
+    let csv = headersInCsv.join(';') + '\n'
+    array.forEach(obj => {
+      const row = headers.map(header => {
+        // Handle special cases (commas, quotes, etc.)
+        let value = obj[header] === null ? '' : obj[header].toString();
+        return value;
+      });
+      
+      csv += row.join(';') + '\n';
+  
+    });
+    return csv
+  }
+
+  // Function to download CSV
+  const downloadCSV = (csv, filename = 'exportedTable.csv') => {
+    // Create CSV content
+    if (!csv) return;
+    
+    // Create download link
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    
+    // Create hidden download link and click it
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleExportCsv = () => {
+    const filteredData = similarityData
+    .filter(
+      item => {
+        const firstFilter = (item.similarity * 100) >= minSimilarity && 
+          (item.doc1.toLowerCase().startsWith(nameSop.toLowerCase()) || item.doc2.toLowerCase().startsWith(nameSop.toLowerCase()));
+        
+          const meetsAuthorFilter = filteredAuthorSops.size > 2 ? 
+           filteredAuthorSops.has(item.doc1) || filteredAuthorSops.has(item.doc2) :
+           true
+        return firstFilter && meetsAuthorFilter;
+      })
+    .slice(0, amount)
+
+    // Parse to csv
+    if (filteredData.length == 0) return null;
+
+    const csvData = convertToCsv(filteredData)
+    downloadCSV(csvData)
+    //console.log(csvData)
   };
 
   return (
@@ -123,6 +182,12 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
             ))}
         </tbody>
       </table>
+      <div>
+        <button
+          className='export-csv'
+          onClick={handleExportCsv}
+        >Exportar como csv</button>
+      </div>
     </div>
   );
 };
