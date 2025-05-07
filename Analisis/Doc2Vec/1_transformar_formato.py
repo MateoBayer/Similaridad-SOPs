@@ -5,9 +5,9 @@ import win32com.client
 
 def transformar_a_txt():
     # Directorio donde están los archivos DOCX y DOC
-    input_dir = 'Doc2Vec/LifeDocSOPs'
+    input_dir = 'T-03-03'
     # Directorio donde se guardarán los archivos TXT
-    output_dir = 'txt'
+    output_dir = 'txt2'
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
