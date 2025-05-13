@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Lee el archivo CSV
-df = pd.read_csv('Doc2Vec/simil_doc_doc2vec_cosine.csv')
+df = pd.read_csv('Analisis/Doc2Vec/simil_doc_doc2vec_cosine.csv')
 
 # Ordena el DataFrame por la columna 'Similarity' de mayor a menor
 df_sorted = df.sort_values(by='Similarity', ascending=False)

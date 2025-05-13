@@ -7,10 +7,14 @@ from gensim import utils
 from gensim.models import Doc2Vec, KeyedVectors
 from sklearn.model_selection import train_test_split
 
-model = KeyedVectors.load_word2vec_format("/doc_tensor.w2v", binary=False)
+dir = os.getcwd()
 
-vectors_file = "Analisis/Doc2Vec/vectors.tsv"
-metadata_file = "Analisis/Doc2Vec/metadata.tsv"
+print("Directorio: ", dir)
+
+model = KeyedVectors.load_word2vec_format("doc_tensor_cosine.w2v", binary=False)
+
+vectors_file = "cosine/vectors_c.tsv"
+metadata_file = "cosine/metadata_c.tsv"
 
 with utils.open(vectors_file, 'wb') as v, utils.open(metadata_file, 'wb') as m:
     for word in model.index_to_key:

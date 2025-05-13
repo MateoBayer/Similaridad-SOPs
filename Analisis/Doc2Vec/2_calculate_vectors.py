@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 import os
 
 # Define the directory where your text files are located
-path_dir = 'txt2'
+path_dir = 'Analisis\SOPs txt'
 
 def read_file(filename):
     path = os.path.join(path_dir, filename)  # Use os.path.join for cross-platform compatibility
