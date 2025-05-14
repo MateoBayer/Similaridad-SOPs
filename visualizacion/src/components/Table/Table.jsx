@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { parseSopCSV } from '../../utils/dataUtils';
 import './Table.css';
 
-const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuthorSops}) => {
+const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuthorSops,sopsFile}) => {
   const [similarityData, setSimilarityData] = useState([]);
   const [amount, setAmount] = useState(10);
   const [nameSop, setNameSop] = useState("");
   const [minSimilarity, setMinSimilarity] = useState(0)
+  const [sopsData, setSopsData] = useState(null)
 
   useEffect(() => {
     fetch(file)
@@ -34,6 +36,17 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
   }, []);
 
   useEffect(() => {
+      fetch(sopsFile)
+        .then(response => response.text())
+        .then(csv => {
+          const parsedData = parseSopCSV(csv);
+          setSopsData(parsedData);
+          console.log("SOPs data: ", sopsData)
+        })
+        .catch(error => console.error('Error loading data:', error));
+    }, []);
+
+  useEffect(() => {
     if (selectedSop) {
       setNameSop(selectedSop);
     }
@@ -46,7 +59,7 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
   };
 
   const convertToCsv = (array) => {
-    const headersInCsv = ["Documento 1", "Documento 2", "Similaridad"]
+    const headersInCsv = ["Documento 1","Titulo", "Autor/es", "Documento 2","Titulo", "Autor/es", "Similaridad"]
     const headers = Object.keys(array[0])
     let csv = headersInCsv.join(';') + '\n'
     array.forEach(obj => {
@@ -66,9 +79,12 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
   const downloadCSV = (csv, filename = 'exportedTable.csv') => {
     // Create CSV content
     if (!csv) return;
-    
+
+    const BOM = '\uFEFF';
+    const csvContent = BOM + csv;
+
     // Create download link
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     
     // Create hidden download link and click it
@@ -94,11 +110,34 @@ const Table = ({file, selectedSop, onHighlightSop, highlightedSops, filteredAuth
         return firstFilter && meetsAuthorFilter;
       })
     .slice(0, amount)
-
+    console.log("filteredTableData: ", filteredData)
+    // HERE I SHOULD JOIN THE DATA
     // Parse to csv
     if (filteredData.length == 0) return null;
 
-    const csvData = convertToCsv(filteredData)
+    // Enrich data with document details
+    const enrichedData = filteredData.map(item => {
+      // Find document details in sopsData
+      const doc1Details = sopsData.find(sop => sop.document === item.doc1) || {};
+      const doc2Details = sopsData.find(sop => sop.document === item.doc2) || {};
+      
+      // Return enriched item with all details
+      return {
+        doc1: item.doc1,
+        doc1_title: doc1Details.title || "Sin titulo",
+        doc1_authors: Array.isArray(doc1Details.autor) 
+          ? doc1Details.autor.join(" - ") 
+          : doc1Details.autor || "Sin Autor",
+        doc2: item.doc2,
+        doc2_title: doc2Details.title || "Sin titulo",
+        doc2_authors: Array.isArray(doc2Details.autor) 
+          ? doc2Details.autor.join(" - ") 
+          : doc2Details.autor || "Sin Autor",
+        similarity: (item.similarity * 100).toFixed(2)
+      };
+    }); 
+    
+    const csvData = convertToCsv(enrichedData)
     downloadCSV(csvData)
     //console.log(csvData)
   };

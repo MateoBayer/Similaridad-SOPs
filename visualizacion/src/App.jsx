@@ -56,6 +56,7 @@ function App() {
           onHighlightSop={handleHighlightedSop}
           highlightedSops={highlightedSops} // Para resaltar los que ya estan resaltados
           filteredAuthorSops={filteredAuthorSops}
+          sopsFile={'sops_data.csv'}
         />
         <DocumentComparison file={"comparison_data.csv"} />
       </section>
