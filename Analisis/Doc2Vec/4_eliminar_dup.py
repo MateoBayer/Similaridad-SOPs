@@ -3,11 +3,9 @@ import os
 def remove_duplicate_docs(folder_path):
     files = os.listdir(folder_path)
     
-    # Obtener nombres de archivos sin extensión
     docx_files = {f[:-5] for f in files if f.endswith(".docx")}
     doc_files = {f[:-4] for f in files if f.endswith(".doc")}
     
-    # Encontrar .doc duplicados que tengan versión .docx
     duplicates = doc_files.intersection(docx_files)
     
     for filename in duplicates:
@@ -18,8 +16,5 @@ def remove_duplicate_docs(folder_path):
         except Exception as e:
             print(f"Error al eliminar {doc_path}: {e}")
 
-folder_path = "SOPs"  # Cambia esto a tu carpeta
+folder_path = "C:\Users\GPKYR\Downloads\SOPs"
 remove_duplicate_docs(folder_path)
-
-
-# remove_duplicate_docs("T-03-03")
